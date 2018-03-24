@@ -1,0 +1,1791 @@
+# netmap configure log Thu Mar 22 14:57:46 CST 2018
+# Configured with:
+ '/home/wangbojing/share/netmap/LINUX/configure' '--kernel-source=/home/wangbojing/share/linux-4.4.16'
+#
+**********************************  NOTE   **********************************
+*** We are trying to download the original sources for driver
+*** i40e using the following command:
+***   
+***   test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/i40e-2.1.26.tar.gz || wget https://sourceforge.net/projects/e1000/files/i40e%20stable/2.1.26/i40e-2.1.26.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+*** 
+*** If this fails, please download the above file and put it
+*** in /home/wangbojing/share/netmap/LINUX/ext-drivers/, then run configure again.
+*****************************************************************************
+**********************************  NOTE   **********************************
+*** We are trying to download the original sources for driver
+*** ixgbevf using the following command:
+***   
+***   test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/ixgbevf-4.2.1.tar.gz || wget https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/4.2.1/ixgbevf-4.2.1.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+*** 
+*** If this fails, please download the above file and put it
+*** in /home/wangbojing/share/netmap/LINUX/ext-drivers/, then run configure again.
+*****************************************************************************
+**********************************  NOTE   **********************************
+*** We are trying to download the original sources for driver
+*** ixgbe using the following command:
+***   
+***   test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/ixgbe-5.2.3.tar.gz || wget https://sourceforge.net/projects/e1000/files/ixgbe%20stable/5.2.3/ixgbe-5.2.3.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+*** 
+*** If this fails, please download the above file and put it
+*** in /home/wangbojing/share/netmap/LINUX/ext-drivers/, then run configure again.
+*****************************************************************************
+**********************************  NOTE   **********************************
+*** We are trying to download the original sources for driver
+*** igb using the following command:
+***   
+***   test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/igb-5.3.5.12.tar.gz || wget https://sourceforge.net/projects/e1000/files/igb%20stable/5.3.5.12/igb-5.3.5.12.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+*** 
+*** If this fails, please download the above file and put it
+*** in /home/wangbojing/share/netmap/LINUX/ext-drivers/, then run configure again.
+*****************************************************************************
+**********************************  NOTE   **********************************
+*** We are trying to download the original sources for driver
+*** e1000e using the following command:
+***   
+***   test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/e1000e-3.3.6.tar.gz || wget https://sourceforge.net/projects/e1000/files/e1000e%20stable/3.3.6/e1000e-3.3.6.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+*** 
+*** If this fails, please download the above file and put it
+*** in /home/wangbojing/share/netmap/LINUX/ext-drivers/, then run configure again.
+*****************************************************************************
+********************************** WARNING **********************************
+*** 'r8169.c': no applicable patch found and no override provided.
+*** Disabling driver.
+*****************************************************************************
+##############################################################################
+##		NEW TESTS
+##############################################################################
+##############################################################################
+##            TEST:  __test__1
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__1.o ]; then true; else broken_buildsystem; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-i40e ]; then true; else drv_source_error i40e; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-ixgbevf ]; then true; else drv_source_error ixgbevf; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-ixgbe ]; then true; else drv_source_error ixgbe; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-igb ]; then true; else drv_source_error igb; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-e1000e ]; then true; else drv_source_error e1000e; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-e1000 ]; then true; else drv_source_error e1000; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-veth.c ]; then true; else drv_source_error veth.c; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-forcedeth.c ]; then true; else drv_source_error forcedeth.c; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/get-virtio_net.c ]; then true; else drv_source_error virtio_net.c; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/build-i40e ]; then true; else edrv_build_error i40e; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/build-ixgbevf ]; then true; else edrv_build_error ixgbevf; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/build-ixgbe ]; then true; else edrv_build_error ixgbe; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/build-igb ]; then true; else edrv_build_error igb; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/build-e1000e ]; then true; else edrv_build_error e1000e; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/patch-e1000 ]; then true; else drv_patch_error e1000; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/patch-veth.c ]; then true; else drv_patch_error veth.c; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/patch-forcedeth.c ]; then true; else drv_patch_error forcedeth.c; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/patch-virtio_net.c ]; then true; else drv_patch_error virtio_net.c; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__2
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/iommu.h>
+
+	void dummy(void)
+	{
+	        struct iommu_group *grp = iommu_group_get(NULL);
+	        int id = iommu_group_id(grp);
+
+	        (void)grp;
+	        (void)id;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__2.o ]; then have IOMMU; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__3
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/hrtimer.h>
+
+	enum hrtimer_restart
+	testmod_timer_handler(struct hrtimer *t)
+	{
+	        (void)t;
+	        return HRTIMER_RESTART;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__3.o ]; then define TIMER_RTYPE "enum hrtimer_restart"; else define TIMER_RTYPE int; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__4
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	int dummy(void)
+	{
+	        return netdev_rx_handler_register(NULL, NULL, NULL);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__4.o ]; then have RX_REGISTER; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__5
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+
+	static rx_handler_result_t dummy_rx_handler(struct sk_buff **pm)
+	{
+	        (void)pm;
+	        return RX_HANDLER_PASS;
+	}
+
+	int dummy(void)
+	{
+	        return netdev_rx_handler_register(NULL, dummy_rx_handler, NULL);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__5.o ]; then have RX_HANDLER_RESULT; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__6
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  		#include <linux/netdevice.h>
+  
+  		u16 dummy(struct net_device_ops *ndo)
+  		{
+  		        return ndo->ndo_select_queue(NULL, NULL);
+  		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__6.o ]; then define SELECT_QUEUE 2; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__7
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  		#include <linux/netdevice.h>
+  
+  		u16 dummy(struct net_device_ops *ndo)
+  		{
+  		        return ndo->ndo_select_queue(NULL, NULL, NULL);
+  		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__7.o ]; then define SELECT_QUEUE 3; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__8
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  		#include <linux/netdevice.h>
+  
+  		u16 dummy(struct net_device_ops *ndo)
+  		{
+  		        return ndo->ndo_select_queue(NULL, NULL, NULL, NULL);
+  		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__8.o ]; then define SELECT_QUEUE 4; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__9
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+	#include <linux/ethtool.h>
+
+	void
+	dummy(struct net_device *net, struct ethtool_ringparam *rp) {
+	        net->ethtool_ops->get_ringparam(net, rp);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__9.o ]; then have GET_RINGPARAM; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__10
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+	#include <linux/ethtool.h>
+
+	int
+	dummy(struct net_device *net, struct ethtool_channels *c) {
+		net->ethtool_ops->get_channels(net, c);
+		return net->ethtool_ops->set_channels(net, c);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__10.o ]; then have SET_CHANNELS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__11
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <net/net_namespace.h>
+
+	int *
+	dummy(struct pernet_operations *ops) {
+		return ops->id;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__11.o ]; then have PERNET_OPS_ID; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__12
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	unsigned int
+	dummy(struct net_device *net)
+	{
+	    return net->real_num_rx_queues;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__12.o ]; then have REAL_NUM_RX_QUEUES; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__13
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	unsigned int
+	dummy(struct net_device *net)
+	{
+	    return net->num_rx_queues;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__13.o ]; then have NUM_RX_QUEUES; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__14
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	int
+	dummy(struct net_device *net, unsigned int txq)
+	{
+	    return netif_set_real_num_tx_queues(net, txq);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__14.o ]; then have SET_REAL_NUM_TX_QUEUES; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__15
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+		#include <linux/poll.h>
+
+		int
+		dummy(struct poll_table_struct *pwait)
+		{
+		        return pwait->_key;
+		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__15.o ]; then define PWAIT_KEY _key; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__16
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+		#include <linux/poll.h>
+
+		int
+		dummy(struct poll_table_struct *pwait)
+		{
+		        return pwait->key;
+		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__16.o ]; then define PWAIT_KEY key; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__17
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/fs.h>
+
+	void *
+	dummy(struct file_operations *fops)
+	{
+	        return fops->unlocked_ioctl;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__17.o ]; then have UNLOCKED_IOCTL; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__18
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	struct net_device *
+	dummy(const char *name)
+	{
+	        return dev_get_by_name(&init_net, name);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__18.o ]; then have INIT_NET; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__19
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	void dummy(struct sk_buff *skb, const void *from, const unsigned int len)
+	{
+	        skb_copy_to_linear_data(skb, from, len);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__19.o ]; then have SKB_COPY_LINEAR; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__20
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	uintptr_t dummy;
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__20.o ]; then have UINTPTR; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__21
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	u16 dummy(const struct sk_buff *skb)
+	{
+	        return skb_get_queue_mapping(skb);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__21.o ]; then have QUEUE_MAPPING; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__22
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/hrtimer.h>
+
+	u64 dummy(struct hrtimer *timer, ktime_t interval)
+	{
+	        return hrtimer_forward_now(timer, interval);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__22.o ]; then have HRTIMER_FORWARD_NOW; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__23
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/types.h>
+
+	phys_addr_t dummy;
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__23.o ]; then have PHYS_ADDR_T; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__24
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	struct net_device_ops dummy;
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__24.o ]; then have NETDEV_OPS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__25
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	netdev_tx_t dummy;
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__25.o ]; then have NETDEV_TX_T; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__26
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/delay.h>
+
+	void dummy(void)
+	{
+	        usleep_range(0, 0);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__26.o ]; then have USLEEP_RANGE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__27
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/hrtimer.h>
+
+	void dummy(struct hrtimer *timer, clockid_t which_clock)
+	{
+	        hrtimer_init(timer, which_clock, HRTIMER_MODE_REL);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__27.o ]; then have HRTIMER_MODE_REL; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__28
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	int dummy = IFF_LIVE_ADDR_CHANGE;
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__28.o ]; then have LIVE_ADDR_CHANGE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__29
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	void * dummy(struct net_device_ops *ops) {
+	       return ops->ndo_get_stats64;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__29.o ]; then have GET_STATS64; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__30
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	int dummy = IFF_TX_SKB_SHARING;
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__30.o ]; then have TX_SKB_SHARING; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__31
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	unsigned int dummy(struct net_device *n) {
+		return n->hw_features;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__31.o ]; then have HW_FEATURES; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__32
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/etherdevice.h>
+
+	void dummy(struct net_device *dev) {
+	        eth_hw_addr_random(dev);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__32.o ]; then have ADDR_RANDOM; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__33
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	struct net_device *
+	dummy(int sizeof_priv, const char *name,
+		unsigned char name_assign_type,
+		void (*setup)(struct net_device *))
+	{
+		return alloc_netdev(sizeof_priv, name,
+			name_assign_type, setup);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__33.o ]; then define ALLOC_NETDEV_4ARGS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__34
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	struct net_device *
+	dummy(void *ptr)
+	{
+		return netdev_notifier_info_to_dev(ptr);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__34.o ]; then have NNITD; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__35
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <net/sch_generic.h>
+
+	struct Qdisc *
+	dummy(struct netdev_queue *dev_queue,
+	      struct Qdisc_ops* ops,
+	      unsigned int parent_id)
+	{
+		return qdisc_create_dflt(dev_queue,
+					 ops, parent_id);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__35.o ]; then define QDISC_CREATE_DFLT_3ARGS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__36
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	void dummy(struct napi_struct *n, int work_done) {
+		napi_complete_done(n, work_done);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__36.o ]; then have NAPI_COMPLETE_DONE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__37
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	struct sk_buff *
+	dummy(struct napi_struct *n, unsigned int l) {
+		return napi_alloc_skb(n, l);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__37.o ]; then have NAPI_ALLOC_SKB; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__38
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	struct sk_buff *
+	dummy(struct net_device *n, unsigned int l) {
+		return netdev_alloc_skb_ip_align(n, l);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__38.o ]; then have ALLOC_SKB_IP_ALIGN; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__39
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	unsigned int
+	dummy(struct sk_buff *skb) {
+		return skb->xmit_more;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__39.o ]; then have XMIT_MORE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__40
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	void
+	dummy(struct sk_buff *skb, int i, struct page *p,
+	      int off, int size, int truesize)
+	{
+		skb_add_rx_frag(skb, i, p, off, size, truesize);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__40.o ]; then define SKB_ADD_RX_FRAG_6ARGS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__41
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	unsigned int
+	dummy(const skb_frag_t *frag) {
+		return skb_frag_size(frag);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__41.o ]; then have SKB_FRAG_SIZE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__42
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	void *
+	dummy(const skb_frag_t *frag) {
+		return skb_frag_address(frag);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__42.o ]; then have SKB_FRAG_ADDRESS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__43
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/skbuff.h>
+
+	int
+	dummy(const struct sk_buff *skb) {
+		return skb_checksum_start_offset(skb);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__43.o ]; then have SKB_CHECKSUM_START_OFFSET; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__44
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/page_ref.h>
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__44.o ]; then have PAGE_REF; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__45
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	  #include <linux/mm.h>
+
+	  atomic_t
+	  dummy(struct page *page) {
+	  	return page->_count;
+	  }
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__45.o ]; then define PAGE_COUNT _count; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__46
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	  #include <linux/mm.h>
+
+	  atomic_t
+	  dummy(struct page *page) {
+	  	return page->_refcount;
+	  }
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__46.o ]; then define PAGE_COUNT _refcount; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__47
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <net/sch_generic.h>
+
+	int
+	dummy(struct sk_buff *skb, struct Qdisc *q, struct sk_buff **to_free) {
+		return q->enqueue(skb, q, to_free);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__47.o ]; then have QDISC_ENQUEUE_TOFREE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__48
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/netdevice.h>
+
+	int
+	dummy(struct notifier_block *nb) {
+		return register_netdevice_notifier_rh(nb);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__48.o ]; then have REG_NOTIF_RH; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__49
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+        #include <linux/mm.h>
+
+	int
+	dummy(struct vm_operations_struct *ops,
+		struct vm_area_struct *vma, struct vm_fault *vmf) {
+		return ops->fault(vma, vmf);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__49.o ]; then have FAULT_VMA_ARG; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__50
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  #include <linux/sched/mm.h>
+
+  void dummy(void) {}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__50.o ]; then have SCHED_MM; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__51
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/netdevice.h>
+
+  	struct rtnl_link_stats64 *
+  	dummy(struct net_device_ops *ops, struct net_device *dev,
+		struct rtnl_link_stats64 *storage)
+	{
+		return ops->ndo_get_stats64(dev, storage);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__51.o ]; then have NONVOID_GET_STATS64; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__52
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/netdevice.h>
+
+	void
+	dummy(struct net_device *dev)
+	{
+		return dev->destructor(dev);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__52.o ]; then have NETDEV_DTOR; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__53
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/wait.h>
+
+	void *
+	dummy(wait_queue_entry_t *wq) {
+		return wq->private;
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__53.o ]; then have WAIT_QUEUE_ENTRY_T; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__54
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+	#include <linux/pci.h>
+
+	int
+	dummy(struct pci_dev *dev, struct msix_entry *entries, int nvec) {
+		return pci_enable_msix(dev, entries, nvec);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__54.o ]; then have PCI_ENABLE_MSIX; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/e1000e/e1000.h ]; then true; else drv_source_error e1000e; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__55
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "e1000e/e1000.h"
+  
+  	void* dummy(struct e1000_adapter *adapter,
+  	        struct e1000_ring *ring)
+  	{
+  		return adapter->hw.hw_addr + ring->tail;
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__55.o ]; then have E1000E_HWADDR; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__56
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "e1000e/e1000.h"
+  
+  	void dummy(struct e1000_adapter *adapter)
+  	{
+  		e1000e_down(adapter, false);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__56.o ]; then have E1000E_DOWN2; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__57
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__57.o ]; then grep -q '\<e1000_rx_desc_extended\>' netmap-tmpdir/e1000e/netdev.c   	&& have E1000E_EXT_RXDESC; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/ixgbe/ixgbe.h ]; then true; else drv_source_error ixgbe; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__58
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "ixgbe/ixgbe.h"
+  
+  	union ixgbe_adv_tx_desc *
+  	dummy(struct ixgbe_ring *ring) {
+  		return IXGBE_TX_DESC_ADV(*ring, 0);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__58.o ]; then define IXGBE_DESC 1; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__59
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "ixgbe/ixgbe.h"
+  
+  	union ixgbe_adv_tx_desc *
+  	dummy(struct ixgbe_ring *ring) {
+  		return IXGBE_TX_DESC_ADV(ring, 0);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__59.o ]; then define IXGBE_DESC 2; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__60
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "ixgbe/ixgbe.h"
+  
+  	union ixgbe_adv_tx_desc *
+  	dummy(struct ixgbe_ring *ring) {
+  		return IXGBE_TX_DESC(ring, 0);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__60.o ]; then define IXGBE_DESC 3; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__61
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "ixgbe/ixgbe.h"
+  
+  	struct ixgbe_ring *
+  	dummy(struct ixgbe_adapter *adapter) {
+  		return adapter->tx_ring[0];
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__61.o ]; then define IXGBE_PTR_ARRAY; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__62
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+ 	 #include "ixgbe/ixgbe_main.c"
+
+ 	 void
+ 	 dummy(struct ixgbe_adapter *adapter, u64 qmask) {
+ 	 	ixgbe_irq_disable_queues(adapter, qmask);
+ 	 }
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__62.o ]; then define IXGBE_HAVE_DISABLE; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/ixgbevf/ixgbevf.h ]; then true; else drv_source_error ixgbevf; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__63
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "ixgbevf/ixgbevf.h"
+
+	void *
+	dummy(struct ixgbevf_ring *ring, unsigned int i)
+	{
+		return IXGBEVF_RX_DESC(ring, i);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__63.o ]; then true; else define IXGBEVF_IXGBE_MACROS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__64
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "ixgbevf/ixgbevf.h"
+  
+  	struct ixgbevf_ring *
+  	dummy(struct ixgbevf_adapter *adapter) {
+  		return adapter->tx_ring[0];
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__64.o ]; then define IXGBEVF_PTR_ARRAY; fi
+##############################################################################
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/virtio_net.c ]; then true; else drv_source_error virtio_net.c; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__65
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/virtio.h>
+  
+  	bool
+  	dummy(struct virtqueue *vq) {
+  		return virtqueue_enable_cb_delayed(vq);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__65.o ]; then define VIRTIO_CB_DELAYED; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__66
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/virtio.h>
+  
+  	unsigned int
+  	dummy(struct virtqueue *vq) {
+  		return virtqueue_get_vring_size(vq);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__66.o ]; then define VIRTIO_GET_VRSIZE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__67
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "virtio_net.c"
+  
+  	void
+  	dummy(struct virtnet_info *vi) {
+  		free_receive_bufs(vi);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__67.o ]; then define VIRTIO_FREE_PAGES; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__68
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/virtio.h>
+  
+  	void
+  	dummy(struct virtqueue *vq) {
+  		(void)virtqueue_kick(vq);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__68.o ]; then define VIRTIO_FUNCTIONS; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__69
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  		#include <linux/virtio.h>
+  
+  		int
+  		dummy(struct virtqueue *vq, struct scatterlist sg[],
+  			unsigned int out_num, unsigned int in_num,
+  			void *data, gfp_t gfp)
+  		{
+  			return virtqueue_add_buf(vq, sg, out_num, in_num, data, gfp);
+  		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__69.o ]; then define VIRTIO_ADD_BUF virtqueue_add_buf; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__70
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  		#include <linux/virtio.h>
+  
+  		int
+  		dummy(struct virtqueue *vq, struct scatterlist sg[],
+  			unsigned int out_num, unsigned int in_num,
+  			void *data, gfp_t gfp)
+  		{
+  			return virtqueue_add_buf_gfp(vq, sg, out_num, in_num, data, gfp);
+  		}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__70.o ]; then define VIRTIO_ADD_BUF virtqueue_add_buf_gfp; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__71
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "virtio_net.c"
+  
+  	struct virtqueue *
+  	dummy(struct virtnet_info *vi) {
+  		return vi->rq[0].vq;
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__71.o ]; then define VIRTIO_MULTI_QUEUE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__72
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "virtio_net.c"
+  
+  	int
+  	dummy(struct virtnet_info *vi) {
+  		return vi->rq[0].num;
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__72.o ]; then define VIRTIO_RQ_NUM; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__73
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "virtio_net.c"
+  
+  	struct scatterlist *
+  	dummy(struct virtnet_info *vi) {
+  		return vi->rx_sg;
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__73.o ]; then define VIRTIO_SG; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__74
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include <linux/virtio.h>
+  
+  	void
+  	dummy(struct virtqueue *_vq) {
+  		(void)virtqueue_notify(_vq);
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__74.o ]; then define VIRTIO_NOTIFY; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__75
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+  	#include "i40e/i40e.h"
+  
+  	struct i40e_ring *
+  	dummy(struct i40e_vsi *vsi) {
+  		return vsi->tx_rings[0];
+  	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__75.o ]; then define I40E_PTR_ARRAY; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__76
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+   	#include "i40e/i40e.h"
+	#include <linux/bitops.h>
+	#pragma GCC diagnostic error "-Wincompatible-pointer-types"
+
+	int
+	dummy(struct i40e_pf *pf) {
+		return test_and_set_bit(1, &pf->state);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__76.o ]; then define I40E_PTR_STATE; fi
+##############################################################################
+##############################################################################
+##            TEST:  __test__77
+##############################################################################
+			#include <linux/module.h>
+			#include <linux/kernel.h>
+			#include <linux/init.h>
+        #include "igb/e1000_regs.h"
+
+	u32
+	dummy(struct e1000_hw *hw, u32 reg) {
+		return igb_rd32(hw, reg);
+	}
+##############################################################################
+## cmd: if [ -f netmap-tmpdir/__test__77.o ]; then have IGB_RD32; fi
+##############################################################################
+**********************************  NOTE   **********************************
+*** Now running compile tests to adapt the code to your
+*** kernel version. Please wait.
+*****************************************************************************
+##############################################################################
+## BEGIN RUNNING TESTS: Thu Mar 22 14:57:49 CST 2018
+##############################################################################
+## Makefile:
+SRCDIR=/home/wangbojing/share/netmap/LINUX
+ifneq ($(KERNELRELEASE),)
+obj-m := __test__77.o __test__76.o __test__75.o __test__74.o __test__73.o __test__72.o __test__71.o __test__70.o __test__69.o __test__68.o __test__67.o __test__66.o __test__65.o __test__64.o __test__63.o __test__62.o __test__61.o __test__60.o __test__59.o __test__58.o __test__57.o __test__56.o __test__55.o __test__54.o __test__53.o __test__52.o __test__51.o __test__50.o __test__49.o __test__48.o __test__47.o __test__46.o __test__45.o __test__44.o __test__43.o __test__42.o __test__41.o __test__40.o __test__39.o __test__38.o __test__37.o __test__36.o __test__35.o __test__34.o __test__33.o __test__32.o __test__31.o __test__30.o __test__29.o __test__28.o __test__27.o __test__26.o __test__25.o __test__24.o __test__23.o __test__22.o __test__21.o __test__20.o __test__19.o __test__18.o __test__17.o __test__16.o __test__15.o __test__14.o __test__13.o __test__12.o __test__11.o __test__10.o __test__9.o __test__8.o __test__7.o __test__6.o __test__5.o __test__4.o __test__3.o __test__2.o __test__1.o 
+else
+S_DRIVERS := i40e ixgbevf ixgbe igb e1000e e1000 veth.c forcedeth.c virtio_net.c
+E_DRIVERS := i40e ixgbevf ixgbe igb e1000e
+I_DRIVERS := e1000 veth.c forcedeth.c virtio_net.c
+all: $(S_DRIVERS:%=get-%) $(E_DRIVERS:%=build-%) $(I_DRIVERS:%=patch-%) tests
+
+tests:
+	$(MAKE) -C /lib/modules/4.4.16/build M=$$PWD 
+
+-include /home/wangbojing/share/netmap/default-config.mak
+-include /home/wangbojing/share/netmap/config.mak
+-include /home/wangbojing/share/netmap/drivers.mak
+get-i40e:
+	$(i40e@fetch)
+	$(i40e@src)
+	touch get-i40e
+build-i40e: get-i40e
+	+$(i40e@build)
+	touch build-i40e
+patch-i40e: get-i40e
+	$(foreach p,$(i40e@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-i40e
+get-ixgbevf:
+	$(ixgbevf@fetch)
+	$(ixgbevf@src)
+	touch get-ixgbevf
+build-ixgbevf: get-ixgbevf
+	+$(ixgbevf@build)
+	touch build-ixgbevf
+patch-ixgbevf: get-ixgbevf
+	$(foreach p,$(ixgbevf@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-ixgbevf
+get-ixgbe:
+	$(ixgbe@fetch)
+	$(ixgbe@src)
+	touch get-ixgbe
+build-ixgbe: get-ixgbe
+	+$(ixgbe@build)
+	touch build-ixgbe
+patch-ixgbe: get-ixgbe
+	$(foreach p,$(ixgbe@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-ixgbe
+get-igb:
+	$(igb@fetch)
+	$(igb@src)
+	touch get-igb
+build-igb: get-igb
+	+$(igb@build)
+	touch build-igb
+patch-igb: get-igb
+	$(foreach p,$(igb@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-igb
+get-e1000e:
+	$(e1000e@fetch)
+	$(e1000e@src)
+	touch get-e1000e
+build-e1000e: get-e1000e
+	+$(e1000e@build)
+	touch build-e1000e
+patch-e1000e: get-e1000e
+	$(foreach p,$(e1000e@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-e1000e
+get-e1000:
+	$(e1000@fetch)
+	$(e1000@src)
+	touch get-e1000
+build-e1000: get-e1000
+	+$(e1000@build)
+	touch build-e1000
+patch-e1000: get-e1000
+	$(foreach p,$(e1000@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-e1000
+get-veth.c:
+	$(veth.c@fetch)
+	$(veth.c@src)
+	touch get-veth.c
+build-veth.c: get-veth.c
+	+$(veth.c@build)
+	touch build-veth.c
+patch-veth.c: get-veth.c
+	$(foreach p,$(veth.c@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-veth.c
+get-forcedeth.c:
+	$(forcedeth.c@fetch)
+	$(forcedeth.c@src)
+	touch get-forcedeth.c
+build-forcedeth.c: get-forcedeth.c
+	+$(forcedeth.c@build)
+	touch build-forcedeth.c
+patch-forcedeth.c: get-forcedeth.c
+	$(foreach p,$(forcedeth.c@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-forcedeth.c
+get-virtio_net.c:
+	$(virtio_net.c@fetch)
+	$(virtio_net.c@src)
+	touch get-virtio_net.c
+build-virtio_net.c: get-virtio_net.c
+	+$(virtio_net.c@build)
+	touch build-virtio_net.c
+patch-virtio_net.c: get-virtio_net.c
+	$(foreach p,$(virtio_net.c@patch),patch --posix --quiet --force -p1 < $(p);)
+	touch patch-virtio_net.c
+endif
+##############################################################################
+test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/i40e-2.1.26.tar.gz || wget https://sourceforge.net/projects/e1000/files/i40e%20stable/2.1.26/i40e-2.1.26.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/ixgbevf-4.2.1.tar.gz || wget https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/4.2.1/ixgbevf-4.2.1.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/ixgbe-5.2.3.tar.gz || wget https://sourceforge.net/projects/e1000/files/ixgbe%20stable/5.2.3/ixgbe-5.2.3.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/igb-5.3.5.12.tar.gz || wget https://sourceforge.net/projects/e1000/files/igb%20stable/5.3.5.12/igb-5.3.5.12.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+tar xf /home/wangbojing/share/netmap/LINUX/ext-drivers/i40e-2.1.26.tar.gz && ln -s i40e-2.1.26/src i40e
+tar xf /home/wangbojing/share/netmap/LINUX/ext-drivers/ixgbevf-4.2.1.tar.gz && ln -s ixgbevf-4.2.1/src ixgbevf
+tar xf /home/wangbojing/share/netmap/LINUX/ext-drivers/ixgbe-5.2.3.tar.gz && ln -s ixgbe-5.2.3/src ixgbe
+tar xf /home/wangbojing/share/netmap/LINUX/ext-drivers/igb-5.3.5.12.tar.gz && ln -s igb-5.3.5.12/src igb
+touch get-ixgbevf
+test -e /home/wangbojing/share/netmap/LINUX/ext-drivers/e1000e-3.3.6.tar.gz || wget https://sourceforge.net/projects/e1000/files/e1000e%20stable/3.3.6/e1000e-3.3.6.tar.gz -P /home/wangbojing/share/netmap/LINUX/ext-drivers/
+tar xf /home/wangbojing/share/netmap/LINUX/ext-drivers/e1000e-3.3.6.tar.gz && ln -s e1000e-3.3.6/src e1000e
+touch get-igb
+cp -Rp /lib/modules/4.4.16/build/drivers/net/ethernet/intel/e1000 e1000
+touch get-i40e
+cp -Rp /lib/modules/4.4.16/build/drivers/net/veth.c veth.c
+touch get-ixgbe
+cp -Rp /lib/modules/4.4.16/build/drivers/net/ethernet/nvidia/forcedeth.c forcedeth.c
+touch get-e1000e
+cp -Rp /lib/modules/4.4.16/build/drivers/net/virtio_net.c virtio_net.c
+touch get-veth.c
+touch get-virtio_net.c
+make -C i40e CFLAGS_EXTRA=" "  NETMAP_DRIVER_SUFFIX= KSRC=/lib/modules/4.4.16/build
+make -C ixgbevf CFLAGS_EXTRA=" "  NETMAP_DRIVER_SUFFIX= KSRC=/lib/modules/4.4.16/build
+touch get-forcedeth.c
+make -C ixgbe CFLAGS_EXTRA=" "  NETMAP_DRIVER_SUFFIX= KSRC=/lib/modules/4.4.16/build
+make[1]: Entering directory `/home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src'
+make[1]: Entering directory `/home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src'
+make[1]: Entering directory `/home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src'
+touch get-e1000
+make -C igb CFLAGS_EXTRA="-DDISABLE_PACKET_SPLIT -fno-pie "  NETMAP_DRIVER_SUFFIX= KSRC=/lib/modules/4.4.16/build
+make[1]: Entering directory `/home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src'
+make[2]: Entering directory `/home/wangbojing/share/linux-4.4.16'
+make[2]: Entering directory `/home/wangbojing/share/linux-4.4.16'
+make[2]: Entering directory `/home/wangbojing/share/linux-4.4.16'
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbevf_main.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_main.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_main.o
+make[2]: Entering directory `/home/wangbojing/share/linux-4.4.16'
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_main.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbevf_ethtool.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_api.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbe_vf.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_api.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_ethtool.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbe_mbx.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_common.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/kcompat.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_ethtool.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_hwmon.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbevf.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbevf.mod.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_mbx.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src/ixgbevf.ko
+make[2]: Leaving directory `/home/wangbojing/share/linux-4.4.16'
+make[1]: Leaving directory `/home/wangbojing/share/netmap/netmap-tmpdir/ixgbevf-4.2.1/src'
+touch build-ixgbevf
+make -C e1000e CFLAGS_EXTRA="-fno-pie "  NETMAP_DRIVER_SUFFIX= KSRC=/lib/modules/4.4.16/build
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_dcb.o
+make[1]: Entering directory `/home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src'
+make -C /lib/modules/4.4.16/build CC=gcc SUBDIRS=/home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src modules
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_adminq.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_mac.o
+make[2]: Entering directory `/home/wangbojing/share/linux-4.4.16'
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_dcb_82598.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/netdev.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_common.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_manage.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_dcb_82599.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_nvm.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_ethtool.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_hmc.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_param.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_lan_hmc.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_phy.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/ethtool.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_lib.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_nvm.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_procfs.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_vmdq.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_mbx.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_debugfs.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/param.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_82575.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_sriov.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/82571.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_diag.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/e1000_i210.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/ich8lan.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_param.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_txrx.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_debugfs.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_phy.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb_ptp.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/80003es2lan.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_ptp.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_procfs.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/kcompat.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/mac.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_82598.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb.o
+  Building modules, stage 2.
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_client.o
+  MODPOST 1 modules
+  CC      /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb.mod.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src/igb.ko
+make[2]: Leaving directory `/home/wangbojing/share/linux-4.4.16'
+make[1]: Leaving directory `/home/wangbojing/share/netmap/netmap-tmpdir/igb-5.3.5.12/src'
+touch build-igb
+patch --posix --quiet --force -p1 < patches/vanilla--e1000--31200--99999;
+touch patch-e1000
+patch --posix --quiet --force -p1 < patches/vanilla--veth.c--30f00--99999;
+touch patch-veth.c
+patch --posix --quiet --force -p1 < patches/vanilla--forcedeth.c--20626--99999;
+touch patch-forcedeth.c
+patch --posix --quiet --force -p1 < patches/vanilla--virtio_net.c--40100--40900;
+touch patch-virtio_net.c
+make -C /lib/modules/4.4.16/build M=$PWD 
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_82599.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/nvm.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_virtchnl_pf.o
+make[1]: Entering directory `/home/wangbojing/share/linux-4.4.16'
+  LD      /home/wangbojing/share/netmap/netmap-tmpdir/built-in.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__77.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__77.c:7:15: warning: ‘struct e1000_hw’ declared inside parameter list [enabled by default]
+  dummy(struct e1000_hw *hw, u32 reg) {
+               ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__77.c:7:15: warning: its scope is only this definition or declaration, which is probably not what you want [enabled by default]
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__77.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__77.c:8:3: error: implicit declaration of function ‘igb_rd32’ [-Werror=implicit-function-declaration]
+   return igb_rd32(hw, reg);
+   ^
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__77.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__76.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/phy.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_x540.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__76.c:6:10: warning: unknown option after ‘#pragma GCC diagnostic’ kind [-Wpragmas]
+  #pragma GCC diagnostic error "-Wincompatible-pointer-types"
+          ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__76.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__76.c:10:3: warning: passing argument 2 of ‘test_and_set_bit’ from incompatible pointer type [enabled by default]
+   return test_and_set_bit(1, &pf->state);
+   ^
+In file included from include/linux/bitops.h:36:0,
+                 from include/linux/kernel.h:10,
+                 from include/linux/list.h:8,
+                 from include/linux/module.h:9,
+                 from /home/wangbojing/share/netmap/netmap-tmpdir/__test__76.c:1:
+./arch/x86/include/asm/bitops.h:204:19: note: expected ‘volatile long unsigned int *’ but argument is of type ‘long unsigned int (*)[1]’
+ static inline int test_and_set_bit(long nr, volatile unsigned long *addr)
+                   ^
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__75.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_x550.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/manage.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_dcb.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__74.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__73.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/kcompat.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__73.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__73.c:8:14: error: ‘struct virtnet_info’ has no member named ‘rx_sg’
+     return vi->rx_sg;
+              ^
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e_dcb_nl.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__73.c:9:4: warning: control reaches end of non-void function [-Wreturn-type]
+    }
+    ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__73.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__72.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_dcb_nl.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/ptp.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__72.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__72.c:8:21: error: ‘struct receive_queue’ has no member named ‘num’
+     return vi->rq[0].num;
+                     ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__72.c:9:4: warning: control reaches end of non-void function [-Wreturn-type]
+    }
+    ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__72.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__71.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/kcompat.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/e1000e.o
+  Building modules, stage 2.
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_debugfs.o
+  MODPOST 1 modules
+  CC      /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/e1000e.mod.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src/e1000e.ko
+  Building modules, stage 2.
+  MODPOST 1 modules
+make[2]: Leaving directory `/home/wangbojing/share/linux-4.4.16'
+make[1]: Leaving directory `/home/wangbojing/share/netmap/netmap-tmpdir/e1000e-3.3.6/src'
+touch build-e1000e
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_fcoe.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_ptp.o
+  CC      /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e.mod.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__70.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e.ko
+make[2]: Leaving directory `/home/wangbojing/share/linux-4.4.16'
+make[1]: Leaving directory `/home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src'
+touch build-i40e
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__69.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__70.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__70.c:11:6: error: implicit declaration of function ‘virtqueue_add_buf_gfp’ [-Werror=implicit-function-declaration]
+      return virtqueue_add_buf_gfp(vq, sg, out_num, in_num, data, gfp);
+      ^
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__70.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__68.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__69.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__69.c:11:6: error: implicit declaration of function ‘virtqueue_add_buf’ [-Werror=implicit-function-declaration]
+      return virtqueue_add_buf(vq, sg, out_num, in_num, data, gfp);
+      ^
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__69.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__67.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__66.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__65.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__64.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe_sysfs.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__63.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__62.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__61.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/kcompat.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__60.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__62.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__62.c:8:5: error: implicit declaration of function ‘ixgbe_irq_disable_queues’ [-Werror=implicit-function-declaration]
+     ixgbe_irq_disable_queues(adapter, qmask);
+     ^
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__62.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__59.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__58.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__57.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__59.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__59.c:8:5: error: implicit declaration of function ‘IXGBE_TX_DESC_ADV’ [-Werror=implicit-function-declaration]
+     return IXGBE_TX_DESC_ADV(ring, 0);
+     ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__59.c:8:5: warning: return makes pointer from integer without a cast [enabled by default]
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__59.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__56.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__55.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__58.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__58.c:8:5: error: implicit declaration of function ‘IXGBE_TX_DESC_ADV’ [-Werror=implicit-function-declaration]
+     return IXGBE_TX_DESC_ADV(*ring, 0);
+     ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__58.c:8:5: warning: return makes pointer from integer without a cast [enabled by default]
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__58.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__54.o
+  CC      /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe.mod.o
+  LD [M]  /home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src/ixgbe.ko
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__53.o
+make[2]: Leaving directory `/home/wangbojing/share/linux-4.4.16'
+make[1]: Leaving directory `/home/wangbojing/share/netmap/netmap-tmpdir/ixgbe-5.2.3/src'
+touch build-ixgbe
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__52.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__55.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__55.c:9:32: error: invalid operands to binary + (have ‘void *’ and ‘void *’)
+     return adapter->hw.hw_addr + ring->tail;
+                                ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__55.c:10:4: warning: control reaches end of non-void function [-Wreturn-type]
+    }
+    ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__55.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__51.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__53.c:7:8: error: unknown type name ‘wait_queue_entry_t’
+  dummy(wait_queue_entry_t *wq) {
+        ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__53.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__50.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__49.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__50.c:4:30: fatal error: linux/sched/mm.h: No such file or directory
+   #include <linux/sched/mm.h>
+                              ^
+compilation terminated.
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__48.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__47.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__46.o
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__50.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__45.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__46.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__46.c:8:16: error: ‘struct page’ has no member named ‘_refcount’
+     return page->_refcount;
+                ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__46.c:9:4: warning: control reaches end of non-void function [-Wreturn-type]
+    }
+    ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__46.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__44.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__48.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__48.c:8:3: error: implicit declaration of function ‘register_netdevice_notifier_rh’ [-Werror=implicit-function-declaration]
+   return register_netdevice_notifier_rh(nb);
+   ^
+cc1: some warnings being treated as errors
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__48.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__43.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__47.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__47.c:8:3: error: too many arguments to function ‘q->enqueue’
+   return q->enqueue(skb, q, to_free);
+   ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__47.o] Error 1
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__44.c:4:31: fatal error: linux/page_ref.h: No such file or directory
+    #include <linux/page_ref.h>
+                               ^
+compilation terminated.
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__42.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__41.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__40.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__39.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__38.o
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__44.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__37.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__36.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__35.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__34.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__33.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__32.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__31.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__30.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__29.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__28.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__27.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__26.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__25.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__24.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__23.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__22.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__21.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__20.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__19.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__18.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__17.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__16.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__15.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__16.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__16.c:9:23: error: ‘struct poll_table_struct’ has no member named ‘key’
+           return pwait->key;
+                       ^
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__14.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__16.c:10:3: warning: control reaches end of non-void function [-Wreturn-type]
+   }
+   ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__16.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__13.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__12.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__11.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__10.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__9.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__8.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__7.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__6.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__7.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__7.c:8:13: error: too few arguments to function ‘ndo->ndo_select_queue’
+             return ndo->ndo_select_queue(NULL, NULL, NULL);
+             ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__7.c:9:5: warning: control reaches end of non-void function [-Wreturn-type]
+     }
+     ^
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__5.o
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__7.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__4.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__3.o
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__2.o
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__6.c: In function ‘dummy’:
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__6.c:8:13: error: too few arguments to function ‘ndo->ndo_select_queue’
+             return ndo->ndo_select_queue(NULL, NULL);
+             ^
+/home/wangbojing/share/netmap/netmap-tmpdir/__test__6.c:9:5: warning: control reaches end of non-void function [-Wreturn-type]
+     }
+     ^
+make[2]: *** [/home/wangbojing/share/netmap/netmap-tmpdir/__test__6.o] Error 1
+  CC [M]  /home/wangbojing/share/netmap/netmap-tmpdir/__test__1.o
+make[2]: Target `__build' not remade because of errors.
+make[1]: *** [_module_/home/wangbojing/share/netmap/netmap-tmpdir] Error 2
+make[1]: Target `_all' not remade because of errors.
+make[1]: Leaving directory `/home/wangbojing/share/linux-4.4.16'
+make: *** [tests] Error 2
+make: Target `all' not remade because of errors.
+##############################################################################
+## END RUNNING TESTS: Thu Mar 22 14:58:28 CST 2018
+##############################################################################
+##############################################################################
+## CHECKING FOR split_page
+##############################################################################
+found in /lib/modules/4.4.16/build/Module.symvers
+##############################################################################
+ln: failed to create symbolic link ‘./GNUmakefile’: File exists
+ln: failed to create symbolic link ‘./drv-subdir.mak’: File exists
+/home/wangbojing/share/netmap/LINUX/configure: 177: /home/wangbojing/share/netmap/LINUX/configure: /home/wangbojing/share/netmap/LINUX/scripts/vers: not found

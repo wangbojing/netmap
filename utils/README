@@ -1,0 +1,5 @@
+$FreeBSD: head/tools/tools/netmap/README 227614 2011-11-17 12:17:39Z luigi $
+
+This directory contains examples that use netmap
+
+	click*		various click examples

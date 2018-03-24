@@ -1,0 +1,2 @@
+0xe3844d1a	i40e_register_client	/home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e	EXPORT_SYMBOL
+0xaf0da25d	i40e_unregister_client	/home/wangbojing/share/netmap/netmap-tmpdir/i40e-2.1.26/src/i40e	EXPORT_SYMBOL
