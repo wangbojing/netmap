@@ -164,6 +164,8 @@ static u64 veth_stats_one(struct pcpu_vstats *result, struct net_device *dev)
 	return atomic64_read(&priv->dropped);
 }
 
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,5,8) )
+
 static struct rtnl_link_stats64 *veth_get_stats64(struct net_device *dev,
 						  struct rtnl_link_stats64 *tot)
 {
@@ -186,6 +188,34 @@ static struct rtnl_link_stats64 *veth_get_stats64(struct net_device *dev,
 
 	return tot;
 }
+
+#else
+
+static void veth_get_stats64(struct net_device *dev,
+						  struct rtnl_link_stats64 *tot)
+{
+	struct veth_priv *priv = netdev_priv(dev);
+	struct net_device *peer;
+	struct pcpu_vstats one;
+
+	tot->tx_dropped = veth_stats_one(&one, dev);
+	tot->tx_bytes = one.bytes;
+	tot->tx_packets = one.packets;
+
+	rcu_read_lock();
+	peer = rcu_dereference(priv->peer);
+	if (peer) {
+		tot->rx_dropped = veth_stats_one(&one, peer);
+		tot->rx_bytes = one.bytes;
+		tot->rx_packets = one.packets;
+	}
+	rcu_read_unlock();
+
+	return ;
+}
+
+
+#endif
 
 /* fake multicast ability */
 static void veth_set_multicast_list(struct net_device *dev)
@@ -297,12 +327,26 @@ static const struct net_device_ops veth_netdev_ops = {
 	.ndo_features_check	= passthru_features_check,
 };
 
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,5,8) ) // Linux version is error.
+
 #define VETH_FEATURES (NETIF_F_SG | NETIF_F_FRAGLIST | NETIF_F_ALL_TSO |    \
 		       NETIF_F_HW_CSUM | NETIF_F_RXCSUM | NETIF_F_HIGHDMA | \
 		       NETIF_F_GSO_GRE | NETIF_F_GSO_UDP_TUNNEL |	    \
 		       NETIF_F_GSO_IPIP | NETIF_F_GSO_SIT | NETIF_F_UFO	|   \
 		       NETIF_F_HW_VLAN_CTAG_TX | NETIF_F_HW_VLAN_CTAG_RX | \
 		       NETIF_F_HW_VLAN_STAG_TX | NETIF_F_HW_VLAN_STAG_RX )
+
+#else
+
+#define VETH_FEATURES (NETIF_F_SG | NETIF_F_FRAGLIST | NETIF_F_ALL_TSO |    \
+		       NETIF_F_HW_CSUM | NETIF_F_RXCSUM | NETIF_F_HIGHDMA | \
+		       NETIF_F_GSO_GRE | NETIF_F_GSO_UDP_TUNNEL |	    \
+		       NETIF_F_GSO_IPXIP4 | NETIF_F_GSO_IPXIP6 | NETIF_F_GSO_SCTP | NETIF_F_GSO_UDP	|   \
+		       NETIF_F_HW_VLAN_CTAG_TX | NETIF_F_HW_VLAN_CTAG_RX | \
+		       NETIF_F_HW_VLAN_STAG_TX | NETIF_F_HW_VLAN_STAG_RX )
+
+
+#endif
 
 static void veth_setup(struct net_device *dev)
 {
@@ -321,8 +365,11 @@ static void veth_setup(struct net_device *dev)
 			       NETIF_F_HW_VLAN_STAG_TX |
 			       NETIF_F_HW_VLAN_CTAG_RX |
 			       NETIF_F_HW_VLAN_STAG_RX);
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,12,0) )
 	dev->destructor = veth_dev_free;
-
+#else
+	dev->priv_destructor = veth_dev_free;
+#endif
 	dev->hw_features = VETH_FEATURES;
 	dev->hw_enc_features = VETH_FEATURES;
 }
@@ -330,6 +377,7 @@ static void veth_setup(struct net_device *dev)
 /*
  * netlink interface
  */
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,5,8) ) // Linux version is error.
 
 static int veth_validate(struct nlattr *tb[], struct nlattr *data[])
 {
@@ -463,6 +511,154 @@ err_register_peer:
 	free_netdev(peer);
 	return err;
 }
+
+#else
+
+static int veth_validate(struct nlattr *tb[], struct nlattr *data[], struct netlink_ext_ack *extack)
+{
+	if (tb[IFLA_ADDRESS]) {
+		if (nla_len(tb[IFLA_ADDRESS]) != ETH_ALEN)
+			return -EINVAL;
+		if (!is_valid_ether_addr(nla_data(tb[IFLA_ADDRESS])))
+			return -EADDRNOTAVAIL;
+	}
+	if (tb[IFLA_MTU]) {
+		if (!is_valid_veth_mtu(nla_get_u32(tb[IFLA_MTU])))
+			return -EINVAL;
+	}
+	return 0;
+}
+
+static struct rtnl_link_ops veth_link_ops;
+
+static int veth_newlink(struct net *src_net, struct net_device *dev,
+			 struct nlattr *tb[], struct nlattr *data[], struct netlink_ext_ack *extack)
+{
+	int err;
+	struct net_device *peer;
+	struct veth_priv *priv;
+	char ifname[IFNAMSIZ];
+	struct nlattr *peer_tb[IFLA_MAX + 1], **tbp;
+	unsigned char name_assign_type;
+	struct ifinfomsg *ifmp;
+	struct net *net;
+
+	/*
+	 * create and register peer first
+	 */
+	if (data != NULL && data[VETH_INFO_PEER] != NULL) {
+		struct nlattr *nla_peer;
+
+		nla_peer = data[VETH_INFO_PEER];
+		ifmp = nla_data(nla_peer);
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,5,8) ) // Linux version is error.		
+		err = rtnl_nla_parse_ifla(peer_tb,
+					  nla_data(nla_peer) + sizeof(struct ifinfomsg),
+					  nla_len(nla_peer) - sizeof(struct ifinfomsg));
+#else
+		err = rtnl_nla_parse_ifla(peer_tb,
+					  nla_data(nla_peer) + sizeof(struct ifinfomsg),
+					  nla_len(nla_peer) - sizeof(struct ifinfomsg), NULL);
+#endif
+		if (err < 0)
+			return err;
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,5,8) ) // Linux version is error.
+
+		err = veth_validate(peer_tb, NULL);
+#else
+		err = veth_validate(peer_tb, NULL, NULL);
+#endif
+		if (err < 0)
+			return err;
+
+		tbp = peer_tb;
+	} else {
+		ifmp = NULL;
+		tbp = tb;
+	}
+
+	if (tbp[IFLA_IFNAME]) {
+		nla_strlcpy(ifname, tbp[IFLA_IFNAME], IFNAMSIZ);
+		name_assign_type = NET_NAME_USER;
+	} else {
+		snprintf(ifname, IFNAMSIZ, DRV_NAME "%%d");
+		name_assign_type = NET_NAME_ENUM;
+	}
+
+	net = rtnl_link_get_net(src_net, tbp);
+	if (IS_ERR(net))
+		return PTR_ERR(net);
+
+	peer = rtnl_create_link(net, ifname, name_assign_type,
+				&veth_link_ops, tbp);
+	if (IS_ERR(peer)) {
+		put_net(net);
+		return PTR_ERR(peer);
+	}
+
+	if (tbp[IFLA_ADDRESS] == NULL)
+		eth_hw_addr_random(peer);
+
+	if (ifmp && (dev->ifindex != 0))
+		peer->ifindex = ifmp->ifi_index;
+
+	err = register_netdevice(peer);
+	put_net(net);
+	net = NULL;
+	if (err < 0)
+		goto err_register_peer;
+
+	netif_carrier_off(peer);
+
+	err = rtnl_configure_link(peer, ifmp);
+	if (err < 0)
+		goto err_configure_peer;
+
+	/*
+	 * register dev last
+	 *
+	 * note, that since we've registered new device the dev's name
+	 * should be re-allocated
+	 */
+
+	if (tb[IFLA_ADDRESS] == NULL)
+		eth_hw_addr_random(dev);
+
+	if (tb[IFLA_IFNAME])
+		nla_strlcpy(dev->name, tb[IFLA_IFNAME], IFNAMSIZ);
+	else
+		snprintf(dev->name, IFNAMSIZ, DRV_NAME "%%d");
+
+	err = register_netdevice(dev);
+	if (err < 0)
+		goto err_register_dev;
+
+	netif_carrier_off(dev);
+
+	/*
+	 * tie the deviced together
+	 */
+
+	priv = netdev_priv(dev);
+	rcu_assign_pointer(priv->peer, peer);
+
+	priv = netdev_priv(peer);
+	rcu_assign_pointer(priv->peer, dev);
+	return 0;
+
+err_register_dev:
+	/* nothing to do */
+err_configure_peer:
+	unregister_netdevice(peer);
+	return err;
+
+err_register_peer:
+	free_netdev(peer);
+	return err;
+}
+
+
+#endif
 
 static void veth_dellink(struct net_device *dev, struct list_head *head)
 {

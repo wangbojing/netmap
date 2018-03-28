@@ -642,7 +642,11 @@ nm_os_catch_qdisc(struct netmap_generic_adapter *gna, int intercept)
 		qdisc_destroy(ifp->qdisc);
 	}
 	if (intercept) {
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,11,0) ) //Update By WangBoJing , atomic convert to recount from linux 4.11.0
 		atomic_inc(&fqdisc->refcnt);
+#else
+		refcount_inc(&fqdisc->refcnt);
+#endif
 		ifp->qdisc = fqdisc;
 	} else {
 		ifp->qdisc = &noop_qdisc;

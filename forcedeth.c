@@ -44,6 +44,8 @@
 #define FORCEDETH_VERSION		"0.64"
 #define DRV_NAME			"forcedeth"
 
+#include <linux/version.h>
+
 #include <linux/module.h>
 #include <linux/types.h>
 #include <linux/pci.h>
@@ -864,6 +866,7 @@ struct fe_priv {
  */
 static int max_interrupt_work = 4;
 
+static struct net_device *dev;
 /*
  * Optimization can be either throuput mode or cpu mode
  *
@@ -1733,6 +1736,9 @@ static void nv_update_stats(struct net_device *dev)
  * Called with read_lock(&dev_base_lock) held for read -
  * only synchronized against unregister_netdevice.
  */
+
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,5,8) )
+
 static struct rtnl_link_stats64*
 nv_get_stats64(struct net_device *dev, struct rtnl_link_stats64 *storage)
 	__acquires(&netdev_priv(dev)->hwstats_lock)
@@ -1796,7 +1802,70 @@ nv_get_stats64(struct net_device *dev, struct rtnl_link_stats64 *storage)
 
 	return storage;
 }
+#else
+static void nv_get_stats64(struct net_device *dev, struct rtnl_link_stats64 *storage)
+	__acquires(&netdev_priv(dev)->hwstats_lock)
+	__releases(&netdev_priv(dev)->hwstats_lock)
+{
+	struct fe_priv *np = netdev_priv(dev);
+	unsigned int syncp_start;
 
+	/*
+	 * Note: because HW stats are not always available and for
+	 * consistency reasons, the following ifconfig stats are
+	 * managed by software: rx_bytes, tx_bytes, rx_packets and
+	 * tx_packets. The related hardware stats reported by ethtool
+	 * should be equivalent to these ifconfig stats, with 4
+	 * additional bytes per packet (Ethernet FCS CRC), except for
+	 * tx_packets when TSO kicks in.
+	 */
+
+	/* software stats */
+	do {
+		syncp_start = u64_stats_fetch_begin_irq(&np->swstats_rx_syncp);
+		storage->rx_packets       = np->stat_rx_packets;
+		storage->rx_bytes         = np->stat_rx_bytes;
+		storage->rx_dropped       = np->stat_rx_dropped;
+		storage->rx_missed_errors = np->stat_rx_missed_errors;
+	} while (u64_stats_fetch_retry_irq(&np->swstats_rx_syncp, syncp_start));
+
+	do {
+		syncp_start = u64_stats_fetch_begin_irq(&np->swstats_tx_syncp);
+		storage->tx_packets = np->stat_tx_packets;
+		storage->tx_bytes   = np->stat_tx_bytes;
+		storage->tx_dropped = np->stat_tx_dropped;
+	} while (u64_stats_fetch_retry_irq(&np->swstats_tx_syncp, syncp_start));
+
+	/* If the nic supports hw counters then retrieve latest values */
+	if (np->driver_data & DEV_HAS_STATISTICS_V123) {
+		spin_lock_bh(&np->hwstats_lock);
+
+		nv_update_stats(dev);
+
+		/* generic stats */
+		storage->rx_errors = np->estats.rx_errors_total;
+		storage->tx_errors = np->estats.tx_errors_total;
+
+		/* meaningful only when NIC supports stats v3 */
+		storage->multicast = np->estats.rx_multicast;
+
+		/* detailed rx_errors */
+		storage->rx_length_errors = np->estats.rx_length_error;
+		storage->rx_over_errors   = np->estats.rx_over_errors;
+		storage->rx_crc_errors    = np->estats.rx_crc_errors;
+		storage->rx_frame_errors  = np->estats.rx_frame_align_error;
+		storage->rx_fifo_errors   = np->estats.rx_drop_frame;
+
+		/* detailed tx_errors */
+		storage->tx_carrier_errors = np->estats.tx_carrier_errors;
+		storage->tx_fifo_errors    = np->estats.tx_fifo_errors;
+
+		spin_unlock_bh(&np->hwstats_lock);
+	}
+
+}
+
+#endif
 /*
  * nv_alloc_rx: fill rx ring entries.
  * Return 1 if the allocations for the skbs failed and the
@@ -1886,6 +1955,8 @@ packet_dropped:
 }
 
 /* If rx bufs are exhausted called after 50ms to attempt to refresh */
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0) )
+
 static void nv_do_rx_refill(unsigned long data)
 {
 	struct net_device *dev = (struct net_device *) data;
@@ -1894,6 +1965,16 @@ static void nv_do_rx_refill(unsigned long data)
 	/* Just reschedule NAPI rx processing */
 	napi_schedule(&np->napi);
 }
+#else
+
+static void nv_do_rx_refill(struct timer_list *unused) {
+	struct fe_priv *np = netdev_priv(dev);
+	/* Just reschedule NAPI rx processing */
+	napi_schedule(&np->napi);
+}
+
+
+#endif
 
 static void nv_init_rx(struct net_device *dev)
 {
@@ -4093,6 +4174,7 @@ static void nv_free_irq(struct net_device *dev)
 	}
 }
 
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0) )
 static void nv_do_nic_poll(unsigned long data)
 {
 	struct net_device *dev = (struct net_device *) data;
@@ -4201,13 +4283,130 @@ static void nv_do_nic_poll(unsigned long data)
 	enable_irq_lockdep_irqrestore(irq, &flags);
 }
 
+#else
+
+static void nv_do_nic_poll(struct timer_list *unused)
+{
+	struct fe_priv *np = netdev_priv(dev);
+	u8 __iomem *base = get_hwbase(dev);
+	u32 mask = 0;
+	unsigned long flags;
+	unsigned int irq = 0;
+
+	/*
+	 * First disable irq(s) and then
+	 * reenable interrupts on the nic, we have to do this before calling
+	 * nv_nic_irq because that may decide to do otherwise
+	 */
+
+	if (!using_multi_irqs(dev)) {
+		if (np->msi_flags & NV_MSI_X_ENABLED)
+			irq = np->msi_x_entry[NV_MSI_X_VECTOR_ALL].vector;
+		else
+			irq = np->pci_dev->irq;
+		mask = np->irqmask;
+	} else {
+		if (np->nic_poll_irq & NVREG_IRQ_RX_ALL) {
+			irq = np->msi_x_entry[NV_MSI_X_VECTOR_RX].vector;
+			mask |= NVREG_IRQ_RX_ALL;
+		}
+		if (np->nic_poll_irq & NVREG_IRQ_TX_ALL) {
+			irq = np->msi_x_entry[NV_MSI_X_VECTOR_TX].vector;
+			mask |= NVREG_IRQ_TX_ALL;
+		}
+		if (np->nic_poll_irq & NVREG_IRQ_OTHER) {
+			irq = np->msi_x_entry[NV_MSI_X_VECTOR_OTHER].vector;
+			mask |= NVREG_IRQ_OTHER;
+		}
+	}
+
+	disable_irq_nosync_lockdep_irqsave(irq, &flags);
+	synchronize_irq(irq);
+
+	if (np->recover_error) {
+		np->recover_error = 0;
+		netdev_info(dev, "MAC in recoverable error state\n");
+		if (netif_running(dev)) {
+			netif_tx_lock_bh(dev);
+			netif_addr_lock(dev);
+			spin_lock(&np->lock);
+			/* stop engines */
+			nv_stop_rxtx(dev);
+			if (np->driver_data & DEV_HAS_POWER_CNTRL)
+				nv_mac_reset(dev);
+			nv_txrx_reset(dev);
+			/* drain rx queue */
+			nv_drain_rxtx(dev);
+			/* reinit driver view of the rx queue */
+			set_bufsize(dev);
+			if (nv_init_ring(dev)) {
+				if (!np->in_shutdown)
+					mod_timer(&np->oom_kick, jiffies + OOM_REFILL);
+			}
+			/* reinit nic view of the rx queue */
+			writel(np->rx_buf_sz, base + NvRegOffloadConfig);
+			setup_hw_rings(dev, NV_SETUP_RX_RING | NV_SETUP_TX_RING);
+			writel(((np->rx_ring_size-1) << NVREG_RINGSZ_RXSHIFT) + ((np->tx_ring_size-1) << NVREG_RINGSZ_TXSHIFT),
+				base + NvRegRingSizes);
+			pci_push(base);
+			writel(NVREG_TXRXCTL_KICK|np->txrxctl_bits, get_hwbase(dev) + NvRegTxRxControl);
+			pci_push(base);
+			/* clear interrupts */
+			if (!(np->msi_flags & NV_MSI_X_ENABLED))
+				writel(NVREG_IRQSTAT_MASK, base + NvRegIrqStatus);
+			else
+				writel(NVREG_IRQSTAT_MASK, base + NvRegMSIXIrqStatus);
+
+			/* restart rx engine */
+			nv_start_rxtx(dev);
+			spin_unlock(&np->lock);
+			netif_addr_unlock(dev);
+			netif_tx_unlock_bh(dev);
+		}
+	}
+
+	writel(mask, base + NvRegIrqMask);
+	pci_push(base);
+
+	if (!using_multi_irqs(dev)) {
+		np->nic_poll_irq = 0;
+		if (nv_optimized(np))
+			nv_nic_irq_optimized(0, dev);
+		else
+			nv_nic_irq(0, dev);
+	} else {
+		if (np->nic_poll_irq & NVREG_IRQ_RX_ALL) {
+			np->nic_poll_irq &= ~NVREG_IRQ_RX_ALL;
+			nv_nic_irq_rx(0, dev);
+		}
+		if (np->nic_poll_irq & NVREG_IRQ_TX_ALL) {
+			np->nic_poll_irq &= ~NVREG_IRQ_TX_ALL;
+			nv_nic_irq_tx(0, dev);
+		}
+		if (np->nic_poll_irq & NVREG_IRQ_OTHER) {
+			np->nic_poll_irq &= ~NVREG_IRQ_OTHER;
+			nv_nic_irq_other(0, dev);
+		}
+	}
+
+	enable_irq_lockdep_irqrestore(irq, &flags);
+}
+
+
+#endif
+
 #ifdef CONFIG_NET_POLL_CONTROLLER
 static void nv_poll_controller(struct net_device *dev)
 {
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0) )
 	nv_do_nic_poll((unsigned long) dev);
+#else
+	nv_do_nic_poll(NULL);
+#endif
 }
 #endif
 
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0) )
 static void nv_do_stats_poll(unsigned long data)
 	__acquires(&netdev_priv(dev)->hwstats_lock)
 	__releases(&netdev_priv(dev)->hwstats_lock)
@@ -4226,6 +4425,30 @@ static void nv_do_stats_poll(unsigned long data)
 		mod_timer(&np->stats_poll,
 			round_jiffies(jiffies + STATS_INTERVAL));
 }
+
+#else
+
+static void nv_do_stats_poll(struct timer_list *unused)
+	__acquires(&netdev_priv(dev)->hwstats_lock)
+	__releases(&netdev_priv(dev)->hwstats_lock)
+{
+	//struct net_device *dev = (struct net_device *) data;
+	struct fe_priv *np = netdev_priv(dev);
+
+	/* If lock is currently taken, the stats are being refreshed
+	 * and hence fresh enough */
+	if (spin_trylock(&np->hwstats_lock)) {
+		nv_update_stats(dev);
+		spin_unlock(&np->hwstats_lock);
+	}
+
+	if (!np->in_shutdown)
+		mod_timer(&np->stats_poll,
+			round_jiffies(jiffies + STATS_INTERVAL));
+}
+
+
+#endif
 
 static void nv_get_drvinfo(struct net_device *dev, struct ethtool_drvinfo *info)
 {
@@ -5591,7 +5814,7 @@ static int nv_close(struct net_device *dev)
 static const struct net_device_ops nv_netdev_ops = {
 	.ndo_open		= nv_open,
 	.ndo_stop		= nv_close,
-	.ndo_get_stats64	= nv_get_stats64,
+	.ndo_get_stats64	= nv_get_stats64,	
 	.ndo_start_xmit		= nv_start_xmit,
 	.ndo_tx_timeout		= nv_tx_timeout,
 	.ndo_change_mtu		= nv_change_mtu,
@@ -5624,7 +5847,6 @@ static const struct net_device_ops nv_netdev_ops_optimized = {
 
 static int nv_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
 {
-	struct net_device *dev;
 	struct fe_priv *np;
 	unsigned long addr;
 	u8 __iomem *base;
@@ -5652,16 +5874,28 @@ static int nv_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
 	u64_stats_init(&np->swstats_rx_syncp);
 	u64_stats_init(&np->swstats_tx_syncp);
 
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0) )
+
 	init_timer(&np->oom_kick);
 	np->oom_kick.data = (unsigned long) dev;
 	np->oom_kick.function = nv_do_rx_refill;	/* timer handler */
+	
 	init_timer(&np->nic_poll);
 	np->nic_poll.data = (unsigned long) dev;
 	np->nic_poll.function = nv_do_nic_poll;	/* timer handler */
+	
 	init_timer_deferrable(&np->stats_poll);
 	np->stats_poll.data = (unsigned long) dev;
 	np->stats_poll.function = nv_do_stats_poll;	/* timer handler */
+#else
 
+	timer_setup(&np->oom_kick, nv_do_rx_refill, 0);
+
+	timer_setup(&np->nic_poll, nv_do_nic_poll, 0);
+
+	timer_setup(&np->stats_poll, nv_do_stats_poll, 0);
+
+#endif
 	err = pci_enable_device(pci_dev);
 	if (err)
 		goto out_free;
